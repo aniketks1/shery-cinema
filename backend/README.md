@@ -29,7 +29,7 @@ The backend server for **Shery Cinema**, a full-stack movie platform. Built with
 | **JWT**                  | Authentication                      |
 | **bcryptjs**             | Password hashing                    |
 | **ImageKit**             | Image upload & CDN                  |
-| **Nodemailer**           | Email service (verification emails) |
+| **Resend**               | Email service (verification emails) |
 | **Multer**               | File upload handling                |
 | **Helmet**               | Security headers                    |
 | **express-validator**    | Request validation                  |
@@ -76,7 +76,7 @@ backend/
     ├── utils/
     │   ├── appError.js         # Custom operational error class
     │   ├── asyncHandler.js     # Async wrapper for controllers
-    │   ├── mailer.js           # Nodemailer transporter
+    │   ├── mailer.js           # Resend client
     │   └── token.js            # JWT generate & verify helpers
     └── validation/
         ├── admin.validation.js # Admin route validators
@@ -137,11 +137,8 @@ Create a `.env` file in the `backend/` directory with the following variables:
 | `REDIS_HOST`             |          | Redis server host                      |
 | `REDIS_PORT`             |          | Redis server port                      |
 | `REDIS_PASS`             |          | Redis password                         |
-| `EMAIL_HOST`             |          | SMTP host                              |
-| `EMAIL_PORT`             |          | SMTP port                              |
-| `EMAIL_SECURE`           |          | `true` for port 465, `false` otherwise |
-| `EMAIL_USER`             |          | SMTP username / sender email           |
-| `EMAIL_PASS`             |          | SMTP password                          |
+| `RESEND_API_KEY`         |    ✅    | Resend API key                         |
+| `EMAIL_FROM`             |    ✅    | Sender email (verified domain)         |
 | `IMAGE_KIT_PUBLIC_KEY`   |          | ImageKit public key                    |
 | `IMAGE_KIT_PRIVATE_KEY`  |          | ImageKit private key                   |
 | `IMAGE_KIT_URL_ENDPOINT` |          | ImageKit URL endpoint                  |

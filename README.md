@@ -89,7 +89,7 @@ SheryCinema combines **TMDB's** vast movie/TV database with a custom backend tha
 | **Caching**     | Redis (ioredis) — JWT blacklisting |
 | **Auth**        | JWT (jsonwebtoken), bcryptjs       |
 | **File Upload** | Multer (in-memory) → ImageKit CDN  |
-| **Email**       | Nodemailer (SMTP)                  |
+| **Email**       | Resend (HTTP API)                  |
 | **Validation**  | express-validator                  |
 | **Security**    | Helmet, CORS, HTTP-only cookies    |
 
@@ -179,7 +179,7 @@ SheryCinema/
 │       ├── utils/
 │       │   ├── appError.js             # Custom error class
 │       │   ├── asyncHandler.js         # Async error wrapper
-│       │   ├── mailer.js               # Nodemailer transporter
+│       │   ├── mailer.js               # Resend client
 │       │   └── token.js               # JWT generate/verify helpers
 │       └── validation/
 │           ├── auth.validation.js      # Register & login validators
@@ -239,7 +239,7 @@ SheryCinema/
 - **Redis** server (for token blacklisting)
 - **TMDB API key** — [get one here](https://www.themoviedb.org/settings/api)
 - **ImageKit account** — [sign up here](https://imagekit.io/) (for poster uploads)
-- **SMTP credentials** (Gmail, Mailtrap, etc. for verification emails)
+- **Resend API key** — [sign up here](https://resend.com/) (for verification emails)
 
 ### Installation
 
@@ -285,25 +285,22 @@ The frontend runs at `http://localhost:5173` and the backend at the configured `
 
 ### Backend (`backend/.env`)
 
-| Variable                 | Description                  | Example                      |
-| ------------------------ | ---------------------------- | ---------------------------- |
-| `PORT`                   | Server port                  | `3000`                       |
-| `NODE_ENV`               | Environment mode             | `development` / `production` |
-| `FRONTEND_URL`           | Frontend origin for CORS     | `http://localhost:5173`      |
-| `JWT_SECRET`             | Secret key for signing JWTs  | (any strong random string)   |
-| `MONGODB_URI`            | MongoDB connection string    | `mongodb+srv://...`          |
-| `DB_NAME`                | Database name                | `sherycinema`                |
-| `REDIS_HOST`             | Redis server host            | `localhost`                  |
-| `REDIS_PORT`             | Redis server port            | `6379`                       |
-| `REDIS_PASSWORD`         | Redis password (optional)    | —                            |
-| `EMAIL_HOST`             | SMTP host                    | `smtp.gmail.com`             |
-| `EMAIL_PORT`             | SMTP port                    | `587`                        |
-| `EMAIL_SECURE`           | Use SSL (true for port 465)  | `false`                      |
-| `EMAIL_USER`             | SMTP username / email        | `you@gmail.com`              |
-| `EMAIL_PASS`             | SMTP password / app password | —                            |
-| `IMAGE_KIT_PUBLIC_KEY`   | ImageKit public key          | —                            |
-| `IMAGE_KIT_PRIVATE_KEY`  | ImageKit private key         | —                            |
-| `IMAGE_KIT_URL_ENDPOINT` | ImageKit URL endpoint        | `https://ik.imagekit.io/...` |
+| Variable                 | Description                    | Example                      |
+| ------------------------ | ------------------------------ | ---------------------------- |
+| `PORT`                   | Server port                    | `3000`                       |
+| `NODE_ENV`               | Environment mode               | `development` / `production` |
+| `FRONTEND_URL`           | Frontend origin for CORS       | `http://localhost:5173`      |
+| `JWT_SECRET`             | Secret key for signing JWTs    | (any strong random string)   |
+| `MONGODB_URI`            | MongoDB connection string      | `mongodb+srv://...`          |
+| `DB_NAME`                | Database name                  | `sherycinema`                |
+| `REDIS_HOST`             | Redis server host              | `localhost`                  |
+| `REDIS_PORT`             | Redis server port              | `6379`                       |
+| `REDIS_PASSWORD`         | Redis password (optional)      | —                            |
+| `RESEND_API_KEY`         | Resend API key                 | `re_xxxxxxxxx`               |
+| `EMAIL_FROM`             | Sender email (verified domain) | `noreply@yourdomain.com`     |
+| `IMAGE_KIT_PUBLIC_KEY`   | ImageKit public key            | —                            |
+| `IMAGE_KIT_PRIVATE_KEY`  | ImageKit private key           | —                            |
+| `IMAGE_KIT_URL_ENDPOINT` | ImageKit URL endpoint          | `https://ik.imagekit.io/...` |
 
 ### Frontend (`frontend/.env`)
 

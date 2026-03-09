@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { User, Lock, Film, ArrowRight, Loader2, AlertCircle } from "lucide-react";
+import { User, Lock, Film, ArrowRight, Loader2, AlertCircle, Eye, EyeOff } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, clearError } from "../store/authSlice";
 
 export default function Login() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+	const [showPassword, setShowPassword] = useState(false);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -78,14 +79,21 @@ export default function Login() {
 					<div className="relative">
 						<Lock className="absolute left-3 top-3.5 h-5 w-5 text-muted-foreground" />
 						<input
-							type="password"
+							type={showPassword ? "text" : "password"}
 							placeholder="Password"
-							className="w-full bg-background/50 border border-border rounded-xl py-3 pl-11 pr-4 text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-300"
+							className="w-full bg-background/50 border border-border rounded-xl py-3 pl-11 pr-11 text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-300"
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
 							required
 							disabled={loading}
 						/>
+						<button
+							type="button"
+							onClick={() => setShowPassword(!showPassword)}
+							className="absolute right-3 top-3.5 text-muted-foreground hover:text-white transition-colors"
+							tabIndex={-1}>
+							{showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+						</button>
 					</div>
 				</div>
 
